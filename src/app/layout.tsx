@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="ru" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-hub-light font-sans`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white font-sans`}
       >
         <Header />
         <main className="min-h-screen pt-20">

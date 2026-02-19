@@ -99,3 +99,169 @@ export function InvertCard({ children, className = "" }: { children: React.React
     </div>
   );
 }
+
+// Новые GSAP компоненты
+export function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
+    gsap.fromTo(
+      element,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 1.2,
+        delay,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: element,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+  }, [delay]);
+
+  return <div ref={elementRef} className={className}>{children}</div>;
+}
+
+export function ScaleIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
+    gsap.fromTo(
+      element,
+      { opacity: 0, scale: 0.8 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        delay,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: element,
+          start: "top 85%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+  }, [delay]);
+
+  return <div ref={elementRef} className={className}>{children}</div>;
+}
+
+export function SlideIn({ children, direction = "left", delay = 0, className = "" }: { children: React.ReactNode; direction?: "left" | "right"; delay?: number; className?: string }) {
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
+    const x = direction === "left" ? -100 : direction === "right" ? 100 : 0;
+
+    gsap.fromTo(
+      element,
+      { opacity: 0, x },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        delay,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: element,
+          start: "top 85%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+  }, [direction, delay]);
+
+  return <div ref={elementRef} className={className}>{children}</div>;
+}
+
+export function Parallax({ children, speed = 0.5, className = "" }: { children: React.ReactNode; speed?: number; className?: string }) {
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
+    gsap.to(element, {
+      yPercent: -50 * speed,
+      ease: "none",
+      scrollTrigger: {
+        trigger: element,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+  }, [speed]);
+
+  return <div ref={elementRef} className={className}>{children}</div>;
+}
+
+export function Counter({ end, duration = 2, className = "" }: { end: number; duration?: number; className?: string }) {
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
+    const obj = { value: 0 };
+    gsap.to(obj, {
+      value: end,
+      duration,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: element,
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+      onUpdate: () => {
+        if (element) {
+          element.textContent = Math.floor(obj.value).toString();
+        }
+      },
+    });
+  }, [end, duration]);
+
+  return <div ref={elementRef} className={className}>0</div>;
+}
+
+export function Stagger({ children, stagger = 0.1, className = "" }: { children: React.ReactNode; stagger?: number; className?: string }) {
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
+    const childrenElements = element.children;
+    
+    gsap.fromTo(
+      childrenElements,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: element,
+          start: "top 85%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+  }, [stagger]);
+
+  return <div ref={elementRef} className={className}>{children}</div>;
+}

@@ -72,7 +72,7 @@ export default function ServicesPage() {
                 {category.items.map((service, j) => (
                   <Reveal key={j} delay={j * 0.1}>
                     <Link href={service.href}>
-                      <InvertCard className="h-full border-none p-12">
+                      <InvertCard className={`h-full border-none p-12 ${category.items.length % 2 !== 0 && j === category.items.length - 1 ? 'md:col-span-2' : ''}`}>
                         <div className="flex flex-col h-full text-left space-y-8">
                           <service.icon className="text-hub-emerald" size={48} />
                           <div className="space-y-4">
@@ -134,7 +134,7 @@ export default function ServicesPage() {
                 { label: "Сделок M&A на сумму", value: "$450 млн" },
                 { label: "AI-автоматизация", value: "в 12 раз быстрее" },
               ].map((stat, i) => (
-                <div key={i} className="p-12 bg-white border border-hub-graphite/10 space-y-4">
+                <div key={i} className="p-12 bg-white border border-hub-graphite/10 space-y-4 flex flex-col justify-center items-center min-h-[200px]">
                   <div className="text-4xl md:text-5xl font-bold text-hub-emerald tracking-tighter">{stat.value}</div>
                   <div className="text-sm uppercase tracking-widest text-hub-graphite/40 font-bold">{stat.label}</div>
                 </div>
@@ -151,9 +151,11 @@ export default function ServicesPage() {
             <div className="absolute top-0 left-0 w-full h-1 bg-hub-emerald" />
             <h2 className="text-4xl md:text-6xl font-bold leading-tight">НУЖНО ИНДИВИДУАЛЬНОЕ <br /><span className="text-hub-emerald">РЕШЕНИЕ?</span></h2>
             <p className="text-xl text-white/40 max-w-2xl">Оставьте заявку, и мы подготовим для вас персональную стратегию трансформации и защиты.</p>
-            <Button className="bg-hub-emerald hover:opacity-90 text-white rounded-none h-20 px-16 text-xl border-none">
-              Обсудить задачу
-            </Button>
+            <Link href="/contact">
+              <Button className="bg-hub-emerald hover:opacity-90 text-white rounded-none h-20 px-16 text-xl border-none">
+                Обсудить задачу
+              </Button>
+            </Link>
           </div>
         </Reveal>
       </section>
